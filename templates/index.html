@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Apn Manager</title>
+    <script src="{{ static_url('js/jquery-2.1.4.js') }}"></script>
+    <script src="{{ static_url('bootstrap/js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ static_url('bootstrap/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ static_url('css/style.css') }}"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" class="navbar-brand">Apn Manager</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <!--items-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="page-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-success">
+                    <div class="panel panel-heading">
+                        <div class="panel-title">Proxy Settings</div>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/apn" method="post">
+                            <div class="form-group">
+                                <label for="name">Apn Name:</label>
+                                <input type="text" name="name" class="form-control" id="name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" name="username" class="form-control" id="username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="text" name="password" class="form-control" id="password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="proxy_ip">IP Address:</label>
+                                <input type="text" name="proxy_ip" class="form-control" id="proxy_ip"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="port">Port:</label>
+                                <input type="text" name="port" class="form-control" id="port"/>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Generate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        {% block page_footer %}
+        <div class="container container-fluid">
+            <h4>Apn Manager<span class="glyphicon glyphicon-envelope" style="padding: 5px;"></span>
+                <small><b><a href="#">realityone</a></b></small>
+            </h4>
+        </div>
+        {% end %}
+    </div>
+</div>
+</body>
+</html>

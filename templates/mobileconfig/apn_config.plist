@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadContent</key>
+			<array>
+				<dict>
+					<key>DefaultsData</key>
+					<dict>
+						<key>apns</key>
+						<array>
+							<dict>
+								<key>apn</key>
+								<string>{{ apn.name }}</string>
+								<key>password</key>
+								<data>
+								{{ apn.password }}
+								</data>
+								<key>proxy</key><string>{{ apn.proxy_ip }}</string><key>proxyPort</key><integer>{{ apn.port }}</integer>
+								<key>username</key>
+								<string>{{ apn.username }}</string>
+							</dict>
+						</array>
+					</dict>
+					<key>DefaultsDomainName</key>
+					<string>com.apple.managedCarrier</string>
+				</dict>
+			</array>
+			<key>PayloadDescription</key>
+			<string>{{ apn.description }}</string>
+			<key>PayloadDisplayName</key>
+			<string>Advanced Settings</string>
+			<key>PayloadIdentifier</key>
+			<string>custom.proxy.apn</string>
+			<key>PayloadOrganization</key>
+			<string>{{ apn.organization }}</string>
+			<key>PayloadType</key>
+			<string>com.apple.apn.managed</string>
+			<key>PayloadUUID</key>
+			<string>{{ apn.config_uid }}</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>Custom APN/Proxy Profile</string>
+	<key>PayloadDisplayName</key>
+	<string>Custom APN/Proxy Profile</string>
+	<key>PayloadIdentifier</key>
+	<string>custom.proxy</string>
+	<key>PayloadOrganization</key>
+	<string>reality0ne.com</string>
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>{{ apn.file_uuid }}</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

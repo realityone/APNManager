@@ -1,4 +1,5 @@
 # encoding=utf-8
+import logging
 import os.path
 import tornado.httpserver
 import tornado.ioloop
@@ -41,7 +42,7 @@ class ApnHandler(BaseHandler):
             try:
                 filename = self.application.db.save_profile(apn)
             except Exception, e:
-                raise e
+                logging.error(e)
         self.set_header('Content-Disposition', 'attachment; filename="%s.mobileconfig"' % filename)
         self.set_header('Content-Type', 'application/x-apple-aspen-config')
         self.render('mobileconfig/apn_profile.plist', apn=apn)

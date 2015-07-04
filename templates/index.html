@@ -7,6 +7,7 @@
     <title>Apn Manager</title>
     <script src="{{ static_url('js/jquery-2.1.4.js') }}"></script>
     <script src="{{ static_url('bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ static_url('js/global.js') }}"></script>
     <link rel="stylesheet" href="{{ static_url('bootstrap/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ static_url('css/style.css') }}"/>
 </head>
@@ -62,6 +63,10 @@
                             <div class="form-group">
                                 <label for="port">Port:</label>
                                 <input type="text" name="port" class="form-control" placeholder="optional" id="port"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="save">Save:</label>
+                                <input type="checkbox" name="save" class="form-control" placeholder="optional" id="save"/>
                             </div>
                             <button type="submit" class="btn btn-success btn-block">Generate</button>
                         </form>

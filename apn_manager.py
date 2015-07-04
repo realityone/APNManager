@@ -8,7 +8,7 @@ import tornado.options
 from tornado.options import define, options
 
 from models import ApnProxyConfig
-from db import RedisDB
+from db import RedisDB, NoSuchPrifile
 
 define('address', default='127.0.0.1', help='bind on specific address', type=str)
 define('debug', default=False, help='run in debug mode', type=bool)
@@ -29,28 +29,35 @@ class ApnHandler(BaseHandler):
         self.redirect('/')
 
     def post(self, *args, **kwargs):
+        filename = 'ApnProxy'
         proxy_ip = self.get_body_argument('proxy_ip')
         port = self.get_body_argument('port')
         name = self.get_body_argument('name', default='Apn Proxy Config')
         username = self.get_body_argument('username', default=None)
         password = self.get_body_argument('password', default=None)
+        save = self.get_body_argument('save', default=None)
         apn = ApnProxyConfig(proxy_ip, port, name=name, username=username, password=password)
-        try:
-            print self.application.db.save_profile(apn)
-        except Exception, e:
-            raise e
-        self.set_header('Content-Disposition', 'attachment; filename="ApnProxy.mobileconfig"')
+        if save:
+            try:
+                filename = self.application.db.save_profile(apn)
+            except Exception, e:
+                raise e
+        self.set_header('Content-Disposition', 'attachment; filename="%s.mobileconfig"' % filename)
         self.set_header('Content-Type', 'application/x-apple-aspen-config')
         self.render('mobileconfig/apn_profile.plist', apn=apn)
 
 
 class ShareHandler(BaseHandler):
-    def set_default_headers(self):
-        self.set_header('Content-Disposition', 'attachment; filename="ApnProxy.mobileconfig"')
+    filename = 'ApnProxy'
+
+    def set_file_header(self):
+        self.set_header('Content-Disposition', 'attachment; filename="%s.mobileconfig"' % self.filename)
         self.set_header('Content-Type', 'application/x-apple-aspen-config')
 
     def match_profile(self, code):
         apn = self.application.db.get_profile(code)
+        self.filename = code
+        self.set_file_header()
         return apn
 
     def post(self, *args, **kwargs):

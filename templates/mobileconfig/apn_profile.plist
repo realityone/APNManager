@@ -16,10 +16,11 @@
 								<key>apn</key>
 								<string>{{ apn.name }}</string>
 								<key>password</key>
-								<data>
-								{{ apn.password }}
-								</data>
-								<key>proxy</key><string>{{ apn.proxy_ip }}</string><key>proxyPort</key><integer>{{ apn.port }}</integer>
+								<string>{{ apn.password }}</string>
+								<key>proxy</key>
+								<string>{{ apn.proxy_ip }}</string>
+								<key>proxyPort</key>
+								<integer>{{ apn.port }}</integer>
 								<key>username</key>
 								<string>{{ apn.username }}</string>
 							</dict>
@@ -30,13 +31,11 @@
 				</dict>
 			</array>
 			<key>PayloadDescription</key>
-			<string>{{ apn.description }}</string>
+			<string>Configures APN settings</string>
 			<key>PayloadDisplayName</key>
-			<string>Advanced Settings</string>
+			<string>APN</string>
 			<key>PayloadIdentifier</key>
-			<string>custom.proxy.apn</string>
-			<key>PayloadOrganization</key>
-			<string>{{ apn.organization }}</string>
+			<string>apn.proxy.profile</string>
 			<key>PayloadType</key>
 			<string>com.apple.apn.managed</string>
 			<key>PayloadUUID</key>
@@ -45,14 +44,10 @@
 			<integer>1</integer>
 		</dict>
 	</array>
-	<key>PayloadDescription</key>
-	<string>Custom APN/Proxy Profile</string>
 	<key>PayloadDisplayName</key>
-	<string>Custom APN/Proxy Profile</string>
+	<string>ApnProxy</string>
 	<key>PayloadIdentifier</key>
-	<string>custom.proxy</string>
-	<key>PayloadOrganization</key>
-	<string>reality0ne.com</string>
+	<string>apn.proxy</string>
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
 	<key>PayloadType</key>

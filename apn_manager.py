@@ -8,6 +8,7 @@ import tornado.options
 from tornado.options import define, options
 
 from models import ApnProxyConfig
+from db import RedisDB
 
 define('address', default='127.0.0.1', help='bind on specific address', type=str)
 define('debug', default=False, help='run in debug mode', type=bool)
@@ -34,9 +35,34 @@ class ApnHandler(BaseHandler):
         username = self.get_body_argument('username', default=None)
         password = self.get_body_argument('password', default=None)
         apn = ApnProxyConfig(proxy_ip, port, name=name, username=username, password=password)
-        self.set_header('Content-Disposition', 'attachment; filename="CustomProxy.mobileconfig"')
+        try:
+            print self.application.db.save_profile(apn)
+        except Exception, e:
+            raise e
+        self.set_header('Content-Disposition', 'attachment; filename="ApnProxy.mobileconfig"')
         self.set_header('Content-Type', 'application/x-apple-aspen-config')
-        self.render('mobileconfig/apn_config.plist', apn=apn)
+        self.render('mobileconfig/apn_profile.plist', apn=apn)
+
+
+class ShareHandler(BaseHandler):
+    def set_default_headers(self):
+        self.set_header('Content-Disposition', 'attachment; filename="ApnProxy.mobileconfig"')
+        self.set_header('Content-Type', 'application/x-apple-aspen-config')
+
+    def match_profile(self, code):
+        apn = self.application.db.get_profile(code)
+        return apn
+
+    def post(self, *args, **kwargs):
+        code = self.get_body_argument('code')
+        apn = self.match_profile(code)
+        self.render('mobileconfig/apn_profile.plist', apn=apn)
+
+    def get(self, code):
+        if code == '':
+            self.redirect('/')
+        apn = self.match_profile(code)
+        self.render('mobileconfig/apn_profile.plist', apn=apn)
 
 
 class Application(tornado.web.Application):
@@ -44,12 +70,14 @@ class Application(tornado.web.Application):
         handlers = [
             ('/', IndexHandler),
             ('/apn', ApnHandler),
+            ('/share/(.*)', ShareHandler),
         ]
         settings = {
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'debug': debug
         }
+        self.db = RedisDB()
         super(Application, self).__init__(handlers, **settings)
 
 
